@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -48,6 +49,8 @@ public static LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
     chooser.setDefaultOption("Default Auto", new EmptyCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);
+
+    CameraServer.getInstance().startAutomaticCapture();
   }
 
   /**
