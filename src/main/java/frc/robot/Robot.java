@@ -45,12 +45,23 @@ public static LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
    */
   @Override
   public void robotInit() {
-    oi = new OI();
+    try {
+
+
+    
+
+
+     oi = new OI();
     chooser.setDefaultOption("Default Auto", new EmptyCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);
 
     CameraServer.getInstance().startAutomaticCapture();
+    }
+    catch(Exception e) {
+      //  Block of code to handle errors
+    }
+   
   }
 
   /**
@@ -63,6 +74,12 @@ public static LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
    */
   @Override
   public void robotPeriodic() {
+    try {
+      //  Block of code to try
+    }
+    catch(Exception e) {
+      //  Block of code to handle errors
+    }
   }
 
   /**
@@ -72,6 +89,12 @@ public static LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
    */
   @Override
   public void disabledInit() {
+    try {
+      //  Block of code to try
+    }
+    catch(Exception e) {
+      //  Block of code to handle errors
+    }
   }
 
   @Override
@@ -117,6 +140,7 @@ public static LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
 
   @Override
   public void teleopInit() {
+    
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -131,7 +155,14 @@ public static LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
    */
   @Override
   public void teleopPeriodic() {
-    Scheduler.getInstance().run();
+
+    try {
+      Scheduler.getInstance().run();
+    }
+    catch(Exception e) {
+      //  Block of code to handle errors
+    }
+   
   
   }
 
