@@ -46,7 +46,11 @@ public class RobotMap {
   
     public static int climber1 = 7;
     public static int climber2 = 8;
-    public static int elevator = 9;
+    public static int climber3 = 10;
+    public static int climber4 = 12;
+    
+    public static int elevator1 = 13;
+    public static int elevator2 = 14;
 
 
 

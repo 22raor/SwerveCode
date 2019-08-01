@@ -23,8 +23,11 @@ public class EverythingElseSubsystem extends Subsystem {
   public WPI_TalonSRX intake1 = new WPI_TalonSRX(RobotMap.intake1);
  
   public WPI_TalonSRX climber1 = new WPI_TalonSRX(RobotMap.climber1);
-  public WPI_VictorSPX climber2 = new WPI_VictorSPX(RobotMap.climber2);
-  public WPI_TalonSRX elevator = new WPI_TalonSRX(RobotMap.elevator);
+  public WPI_TalonSRX climber2 = new WPI_TalonSRX(RobotMap.climber2);
+  public WPI_TalonSRX climber3 = new WPI_TalonSRX(RobotMap.climber3);
+  public WPI_TalonSRX climber4 = new WPI_TalonSRX(RobotMap.climber4);
+  public WPI_TalonSRX elevator1 = new WPI_TalonSRX(RobotMap.elevator1);
+  public WPI_TalonSRX elevator2 = new WPI_TalonSRX(RobotMap.elevator2);
 
 public EverythingElseSubsystem() {
 
@@ -35,11 +38,20 @@ public void intake(double intakeEffort1) {intake1.set(intakeEffort1);}
 
 
 public void outtake(double intakeEffort2) {intake1.set(-intakeEffort2);}
-public void climber(double climberEffort) {climber1.set(climberEffort);
-climber2.set(climberEffort);
+public void climber(double climberEffort) {
+  climber1.set(climberEffort);
+  climber2.set(climberEffort);
+  climber3.set(-climberEffort);
+  climber3.set(-climberEffort);
+
 
 }
-public void elevator(double elevatorEffort) {elevator.set(elevatorEffort);}
+public void elevator(double elevatorEffort) {
+  
+  elevator1.set(elevatorEffort);
+  elevator2.set(elevatorEffort);
+
+}
 
 
 

@@ -9,12 +9,16 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.commands.LimelightCommand;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.networktables.*;
+
+import java.lang.Math;
 
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -34,20 +38,23 @@ public class LimelightSubsystem extends Subsystem {
   private boolean m_LimelightHasValidTarget = false;
   private double m_LimelightDriveCommand = 0.0;
   private double m_LimelightSteerCommand = 0.0;
-
-public void a() {
+  boolean auto = false;
+public void a(Joystick stick3) {
 
   Update_Limelight_Tracking();
 
-
-  boolean auto = Robot.oi.stick3.getRawButton(1);
+  System.out.println("a running");
+  auto = stick3.getRawButton(1);
 
 
 
   if (auto)
   {
+    System.out.println("Button pressed");
+    System.out.println("Valid target status: " + m_LimelightHasValidTarget);
     if (m_LimelightHasValidTarget)
     {
+      System.out.println("Limelight recieved valid target");
           Robot.driveSubsystem.drive.arcadeDrive(m_LimelightDriveCommand,m_LimelightSteerCommand);
     }
     else
@@ -62,47 +69,59 @@ public void a() {
 
 public void Update_Limelight_Tracking() {
 
-  // These numbers must be tuned for your Robot!  Be careful!
-  final double STEER_K = 0.03;                    // how hard to turn toward the target
-  final double DRIVE_K = 0.26;                    // how hard to drive fwd toward the target
-  final double DESIRED_TARGET_AREA = 13.0;        // Area of the target when the robot reaches the wall
-  final double MAX_DRIVE = 0.7;                   // Simple speed limit so we don't drive too fast
 
-  double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-  double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-  double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-  double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+        // These numbers must be tuned for your Robot!  Be careful!
+        final double STEER_K = 0.03;                    // how hard to turn toward the target
+        final double DRIVE_K = 0.26;                    // how hard to drive fwd toward the target
+        final double DESIRED_TARGET_AREA = 13.0;        // Area of the target when the robot reaches the wall
+        final double MAX_DRIVE = 0.7;                   // Simple speed limit so we don't drive too fast
 
-  if (tv < 1.0)
-  {
-    m_LimelightHasValidTarget = false;
-    m_LimelightDriveCommand = 0.0;
-    m_LimelightSteerCommand = 0.0;
-    return;
-  }
+        double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+        double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+        double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+        double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
 
-  m_LimelightHasValidTarget = true;
+        if (tv < 1.0)
+        {
+          m_LimelightHasValidTarget = false;
+          m_LimelightDriveCommand = 0.0;
+          m_LimelightSteerCommand = 0.0;
+          return;
+        }
 
-  // Start with proportional steering
-  double steer_cmd = tx * STEER_K;
-  m_LimelightSteerCommand = steer_cmd;
+        m_LimelightHasValidTarget = true;
 
-  // try to drive forward until the target area reaches our desired area
-  double drive_cmd = (DESIRED_TARGET_AREA - ta) * DRIVE_K;
+        // Start with proportional steering
+        double steer_cmd = tx * STEER_K;
+        m_LimelightSteerCommand = steer_cmd;
 
-  // don't let the robot drive too fast into the goal
-  if (drive_cmd > MAX_DRIVE)
-  {
-    drive_cmd = MAX_DRIVE;
-  }
-  m_LimelightDriveCommand = drive_cmd;
-}
+        // try to drive forward until the target area reaches our desired area
+        double drive_cmd = (DESIRED_TARGET_AREA - ta) * DRIVE_K;
+
+        // don't let the robot drive too fast into the goal
+        if (drive_cmd > MAX_DRIVE)
+        {
+          drive_cmd = MAX_DRIVE;
+        }
+        m_LimelightDriveCommand = drive_cmd;
   
-
+}
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new LimelightCommand());
+    
   }
 }
+
+
+
+
+
+/*
+
+
+
+
+*/
