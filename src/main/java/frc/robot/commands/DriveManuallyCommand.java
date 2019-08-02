@@ -30,7 +30,7 @@ public class DriveManuallyCommand extends Command {
     double left = Robot.oi.stick.getY();
     double right = Robot.oi.stick2.getY();
    //System.out.println("hello");
-    Robot.driveSubsystem.manualDrive(-right, -left);
+    //Robot.driveSubsystem.manualDrive(-right, -left);
 
     }
   }

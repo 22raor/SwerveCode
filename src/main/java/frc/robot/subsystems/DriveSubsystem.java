@@ -130,10 +130,10 @@ if(ws4==0){ws4 =-1;} else{
 }
 
 
-FRdrive.set(ws1*12);
-FLdrive.set(ws2*12);
-RRdrive.set(ws3*12);
-RLdrive.set(ws4*12);
+FRdrive.set(ws1);
+FLdrive.set(ws2);
+RRdrive.set(ws3);
+RLdrive.set(ws4);
 
 
 
