@@ -35,12 +35,16 @@ public class RobotMap {
     public static DoubleSolenoid FrogAssist = new DoubleSolenoid(RobotMap.compressorID, 4, 5);
     //CAN
     //drive
-  public static int leftMasterPort = 1;
-  public static int leftSlavePort = 3;
-  public static int leftSlavePort2 = 5;
-  public static int rightMasterPort = 2;
-  public static int rightSlavePort = 4;
-  public static int rightSlavePort2 = 6;
+  public static int FLdrive = 1;
+  public static int RLdrive = 1;
+  public static int FRdrive = 1;
+  public static int RRdrive = 1;
+  public static int FLsteer = 1;
+  public static int RLsteer = 1;
+  public static int FRsteer = 1;
+  public static int RRsteer = 1;
+
+
     //other
     public static int intake1 = 5;
   
@@ -52,6 +56,9 @@ public class RobotMap {
     public static int elevator1 = 13;
     public static int elevator2 = 14;
 
+    public static double wheelbase;
+    public static double trackwidth;
+    public static double wtRatio = Math.sqrt((wheelbase*wheelbase)+(trackwidth*trackwidth));
 
 
   //USB
